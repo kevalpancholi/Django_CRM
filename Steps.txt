@@ -1,0 +1,6 @@
+1. Install Mysql on computer
+2. pip install Mysql
+3. pip install mysql-connector-python
+
+Problems:
+- Had to switch from using mysql-client to pymysql
