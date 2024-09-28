@@ -1,1 +1,33 @@
-<h1>Hello World!</h1>
+{% extends 'base.html' %}
+
+<!-- Wrap everything you want to be used in the base.html file with 'block content' -->
+{% block content %}
+
+<div class="col-md-6 offset-md-3">
+<!-- Only show the login if the user has not logged in alread -->
+
+{% if user.is_authenticated %}
+<h1>Hello World</h1>
+{% else %}
+
+<h1>Login</h1>
+<br/>
+<!-- Anytime someone fills the form and submits it, webpage posts that to the server -->
+<form method="POST" action="{% url 'home' %}">
+    <!-- Need csrf (cross-site forgery token) tag when creating forms with django; helps form from getting hijacked by hackers-->
+    {% csrf_token %}
+    <form>
+        <div class="mb-3">
+          <input type="text" class="form-control" name="username", placeholder="Username" required>
+        </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" name="password", placeholder="Password" required>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+</form>
+
+</div>
+{% endif %}
+{% endblock %}

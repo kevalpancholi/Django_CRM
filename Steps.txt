@@ -9,3 +9,9 @@ Generic steps to create a webpage in django:
 1. Create template file (html page)
 2. Create a url
 3. Create a view
+
+Logging in and out:
+Built form myself
+
+Registering a new user:
+Use django forms as need to use more logic
