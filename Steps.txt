@@ -4,3 +4,8 @@
 
 Problems:
 - Had to switch from using mysql-client to pymysql
+
+Generic steps to create a webpage in django:
+1. Create template file (html page)
+2. Create a url
+3. Create a view
