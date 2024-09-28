@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .forms import SignUpForm
 
 # Create your views here.
 # Everytime you request something from a website that gets passed to the backend, which is passed into the view and returned something
@@ -32,4 +33,20 @@ def logout_user(request):
     return redirect('home')
 
 def register_user(request):
-    return render(request, 'register.html', {})
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Authenticate and login
+            # Cleaned_data takes whatever is posted on form and pulls out username
+            username = form.cleaned_data['username']
+            password = form.cleaned_data('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, "Successful registration")
+            return redirect('home')
+
+    else:
+        # request.POST not passed as an argument as user going to register and not filled out form yet
+        form = SignUpForm()
+        return render(request, 'register.html', {'form':form})
