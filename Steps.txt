@@ -15,3 +15,7 @@ Built form myself
 
 Registering a new user:
 Use django forms as need to use more logic
+
+Context in django = data passed from the views to templates to be rendered in the html.
+This is crucial for dynamically generating content in your webpages based on the data
+your view provides.
