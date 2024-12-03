@@ -2,16 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
+from .models import Record
 
 # Create your views here.
 # Everytime you request something from a website that gets passed to the backend, which is passed into the view and returned something
 def home(request):
+    # Fetch all of the records in the Record table
+    records = Record.objects.all()
+
     # Check to see if logging in. If person logging in they are POSTING, otherwise they are GETTING
     if request.method == 'POST':
-        # In home.html the username input field is called username
+        # In home.html the username input field is called username, which is the data
+        # being sent to the server
         username = request.POST['username']
         password = request.POST['password']
         # Authenticate if username and password correct
+        # Authenticate method returns none if username and password not matched in database
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -22,7 +28,8 @@ def home(request):
             return redirect('home')
     # If user not posting then they are just getting that page
     else:
-        return render(request, 'home.html', {})
+        # renders the home.html page without any context (data passed to the template)
+        return render(request, 'home.html', {'records':records})
 
 # Don't need to create a user for the superuser
 
@@ -34,11 +41,14 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == 'POST':
+        # Creates a form instance using the data sent in the form POST request
+        # request.POST contains all the data entered by the user in the form fields
         form = SignUpForm(request.POST)
+        # Django validates the form data based on the rules defined in the SignUpForm
         if form.is_valid():
             form.save()
             # Authenticate and login
-            # Cleaned_data takes whatever is posted on form and pulls out username
+            # Cleaned_data is a dictionary that contains the form's validated and processed data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
@@ -51,4 +61,15 @@ def register_user(request):
         form = SignUpForm()
         return render(request, 'register.html', {'form':form})
 
-    return render(request, 'register.html', {'form':form})
+    # return render(request, 'register.html', {'form':form})
+
+# PK will be passed into the view, and the database will return that particular record
+def day_record(request, pk):
+    # Check if user logged in
+    if request.user.is_authenticated:
+        # Get a single record - id is id from migrations folder
+        day_record = Record.objects.get(id=pk)
+        return render(request, 'record.html', {'day_record':day_record})
+    else:
+        messages.success(request, "You must login to view that page!")
+        return redirect('home')

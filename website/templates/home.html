@@ -3,13 +3,46 @@
 <!-- Wrap everything you want to be used in the base.html file with 'block content' -->
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
 <!-- Only show the login if the user has not logged in alread -->
 
 {% if user.is_authenticated %}
-<h1>Hello World</h1>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Date Created</th>
+      <th scope="col">Record Date</th>
+      <th scope="col">Cash Sale</th>
+      <th scope="col">NMS</th>
+      <th scope="col">NMS Earning</th>
+      <th scope="col">Flu Vaccinations</th>
+      <th scope="col">Flu Vaccination Earnings</th>
+      <th scope="col">Covid Vaccinations</th>
+      <th scope="col">Covid Vaccination Earnings</th>
+    </tr>
+  </thead>
+  <tbody>
+{% if records %}
+  {% for record in records %}
+  <tr>
+    <td>{{ record.created_at }}</td>
+    <td><a href= "{% url 'record' record.id %}">{{ record.earning_date }}</a></td>
+    <td>{{ record.cash_sale }}</td>
+    <td>{{ record.NMS_num }}</td>
+    <td>{{ record.NMS_earning }}</td>
+    <td>{{ record.flu_vacc_num }}</td>
+    <td>{{ record.flu_earning }}</td>
+    <td>{{ record.covid_vacc_num }}</td>
+    <td>{{ record.covid_earning }}</td>
+  </tr>
+  {% endfor %}
+{% endif %}
+  </tbody>
+</table>
+
 {% else %}
 
+<div class="col-md-6 offset-md-3">
 <h1>Login</h1>
 <br/>
 <!-- Anytime someone fills the form and submits it, webpage posts that to the server -->
@@ -25,7 +58,7 @@
       <br/>
       <button type="submit" class="btn btn-primary">Login</button>
 </form>
-
 </div>
+
 {% endif %}
 {% endblock %}
