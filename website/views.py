@@ -40,7 +40,7 @@ def register_user(request):
             # Authenticate and login
             # Cleaned_data takes whatever is posted on form and pulls out username
             username = form.cleaned_data['username']
-            password = form.cleaned_data('password1')
+            password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, "Successful registration")
@@ -50,5 +50,5 @@ def register_user(request):
         # request.POST not passed as an argument as user going to register and not filled out form yet
         form = SignUpForm()
         return render(request, 'register.html', {'form':form})
-        
+
     return render(request, 'register.html', {'form':form})
