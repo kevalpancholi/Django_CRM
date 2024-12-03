@@ -19,3 +19,18 @@ Use django forms as need to use more logic
 Context in django = data passed from the views to templates to be rendered in the html.
 This is crucial for dynamically generating content in your webpages based on the data
 your view provides.
+
+Django M-V-T architecture organises code into three interconnected components:
+1. Model = defines structure of your database and how you interact with it, each 
+model corresponds to a table in the database. Django's ORM (object relational mapper)
+lets you interact with the database using Python instead of SQL.
+2. View = contain the logic that processes user requests and returns responses. E.g.
+accept HTTP requests, interact with models, and send an HTTP response back.
+3. Template = defines the html structure users see in their browser.
+
+Flow Example:
+1. User visits https://example.com/products/.
+2. URL maps to the product_list view.
+3. View fetches products from the Product model.
+4. View sends the data to the product_list.html template.
+5. Template renders an HTML page with the product data and sends it to the browser.
