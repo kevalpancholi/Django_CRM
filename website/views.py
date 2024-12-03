@@ -83,3 +83,6 @@ def delete_record(request, pk):
     else:
         messages.success(request, "You must login to delete that record!")
         return redirect('home')
+
+def add_record(request):
+    return render(request, 'add_record.html', {})
