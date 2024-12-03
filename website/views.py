@@ -50,3 +50,5 @@ def register_user(request):
         # request.POST not passed as an argument as user going to register and not filled out form yet
         form = SignUpForm()
         return render(request, 'register.html', {'form':form})
+        
+    return render(request, 'register.html', {'form':form})

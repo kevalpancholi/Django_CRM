@@ -25,23 +25,23 @@ class SignUpForm(UserCreationForm):
         # Init method used to customise the form fields when the form is instantiated
         # *args = lets you pass as many arguments as you want, and they will be captured as a tuple
         # **kwargs = lets you pass as many key word arguments to a function, and they will be captured as a dictionary
-        def __init__(self, *args, **kwargs):
-            # Super() method calls the parent class' (UserCreationForm's) __init__() method
-            # Then adds custom behaviour, such as setting HTML attributes - basically extending its functionality
-            # Super() can be used to call any method or property that exists in the parent class
-            super(SignUpForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        # Super() method calls the parent class' (UserCreationForm's) __init__() method
+        # Then adds custom behaviour, such as setting HTML attributes - basically extending its functionality
+        # Super() can be used to call any method or property that exists in the parent class
+        super(SignUpForm, self).__init__(*args, **kwargs)
 
-            self.fields['username'].widget.attrs['class'] = 'form-control'
-            self.fields['username'].widget.attrs['placeholder'] = 'User Name'
-            self.fields['username'].label = ''
-            self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'User Name'
+        self.fields['username'].label = ''
+        self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
-            self.fields['password1'].widget.attrs['class'] = 'form-control'
-            self.fields['password1'].widget.attrs['placeholder'] = 'Password'
-            self.fields['password1'].label = ''
-            self.fields['password1'].help_text = '<ul class="form-text text-muted small"><li>Your password can\'t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can\'t be a commonly used password.</li><li>Your password can\'t be entirely numeric.</li></ul>'
-            
-            self.fields['password2'].widget.attrs['class'] = 'form-control'
-            self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
-            self.fields['password2'].label = ''
-            self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].label = ''
+        self.fields['password1'].help_text = '<ul class="form-text text-muted small"><li>Your password can\'t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can\'t be a commonly used password.</li><li>Your password can\'t be entirely numeric.</li></ul>'
+        
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+        self.fields['password2'].label = ''
+        self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
