@@ -1,8 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Day Record</h1>
+<div class="card">
+    <div class="card-header">
+        {{ day_record.earning_date }} 📅
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Date Created: </strong>{{ day_record.created_at }}</p>
 
-{{ day_record }}
+        <p class="card-text">
+        <strong>Cash Sale: </strong>{{ day_record.cash_sale }}</p>
+
+        <p class="card-text">
+        <strong>NMS: </strong>{{ day_record.NMS_num }}</p>
+
+        <p class="card-text">
+        <strong>NMS Earning: </strong>{{ day_record.NMS_earning }}</p>
+
+        <p class="card-text">
+        <strong>Flu Vaccinations: </strong>{{ day_record.flu_vacc_num }}</p>
+
+        <p class="card-text">
+        <strong>Flu Earning: </strong>{{ day_record.flu_earning }}</p>
+
+        <p class="card-text">
+        <strong>Covid Vaccinations: </strong>{{ day_record.covid_vacc_num }}</p>
+
+        <p class="card-text">
+        <strong>Covid Earning: </strong>{{ day_record.covid_earning }}</p>
+      <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+      <a href="{% url 'delete_record' day_record.id %}" class="btn btn-danger">Delete</a>
+    </div>
+  </div>
 
 {% endblock %}
