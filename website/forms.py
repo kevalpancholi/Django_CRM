@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Record
 
 # Setting up a sign up form class to inherit from UserCreationForm class; extending its functionality and customising it
 class SignUpForm(UserCreationForm):
@@ -45,3 +46,41 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+# class AddRecordForm(forms.ModelForm):
+#     earning_date = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"placeholder":"YYYY-MM-DD", "class":"form-control", "type":"date"}), label='')
+#     cash_sale = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Cash Sale", "class":"form-control"}), label='', decimal_places=2)
+#     NMS_num = forms.IntegerField(required=True, widget =forms.widgets.NumberInput(attrs={"placeholder":"No. of NMS", "class":"form-control"}), label='', min_value=0)
+#     NMS_earning = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"NMS Earning", "class":"form-control"}), label='', decimal_places=2)
+#     flu_vacc_num = forms.IntegerField(required=True, widget =forms.widgets.NumberInput(attrs={"placeholder":"No. of Flu Vaccinations", "class":"form-control"}), label='', min_value=0)
+#     flu_earning = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Flu Earning", "class":"form-control"}), label='', decimal_places=2)
+#     covid_vacc_num = forms.IntegerField(required=True, widget =forms.widgets.NumberInput(attrs={"placeholder":"No. of Covid Vaccinations", "class":"form-control"}), label='', min_value=0)
+#     covid_earning = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Covid Earning", "class":"form-control"}), label='', decimal_places=2)
+
+#     class Meta:
+#         model = Record
+#         # Exclude created_at field from the record model as input date will automatically be recorded
+#         exclude = ("created_at",)
+
+class AddRecordForm(forms.ModelForm):
+    class Meta:
+        model = Record
+        # Exclude created_at field from the record model as input date will automatically be recorded
+        exclude = ("created_at",)
+        widgets = {
+            'earning_date': forms.DateInput(attrs={"placeholder": "YYYY-MM-DD", "class": "form-control", "type": "date"}),
+            'cash_sale': forms.NumberInput(attrs={"placeholder": "Cash Sale", "class": "form-control"}),
+            'NMS_num': forms.NumberInput(attrs={"placeholder": "No. of NMS", "class": "form-control"}),
+            'NMS_earning': forms.NumberInput(attrs={"placeholder": "NMS Earning", "class": "form-control"}),
+            'flu_vacc_num': forms.NumberInput(attrs={"placeholder": "No. of Flu Vaccinations", "class": "form-control"}),
+            'flu_earning': forms.NumberInput(attrs={"placeholder": "Flu Earning", "class": "form-control"}),
+            'covid_vacc_num': forms.NumberInput(attrs={"placeholder": "No. of Covid Vaccinations", "class": "form-control"}),
+            'covid_earning': forms.NumberInput(attrs={"placeholder": "Covid Earning", "class": "form-control"}),
+        }
+
+    # Dynamically make all fields required
+    def __init__(self, *args, **kwargs):
+        super(AddRecordForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.required = True  # Ensure all fields are required
+            field.label = ""  # Remove any default field labels

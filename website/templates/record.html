@@ -29,8 +29,12 @@
 
         <p class="card-text">
         <strong>Covid Earning: </strong>{{ day_record.covid_earning }}</p>
-      <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+
       <a href="{% url 'delete_record' day_record.id %}" class="btn btn-danger">Delete</a>
+
+      <a href="{% url 'update_record' day_record.id %}" class="btn btn-primary">Update Record</a>
+
+      <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
     </div>
   </div>
 
